@@ -10,7 +10,10 @@ estoque = [
     [8, "Óleo", 7.50, 20],
     [9, "Sal", 1.99, 30],
     [10, "Pão", 1.00, 50]
-] 
+]
+
+def teste()
+    print("Apenas um teste para o github")
 
 ultimo_id_produto = 10
 

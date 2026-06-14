@@ -20,7 +20,7 @@ ARQUIVO_ESTOQUE = "dados/estoque.txt"
 estoque = []
 ultimo_id_produto = 0
 
-#Funções usadas no setor ESTOQUE
+#Funções usadas no setor ESTOQUE w
 
 #Função para salvar o estoque no arquivo
 def carregar_estoque():

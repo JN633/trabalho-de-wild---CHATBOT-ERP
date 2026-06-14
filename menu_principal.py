@@ -1,3 +1,5 @@
+from unittest import case
+
 from estoque import menu_estoque
 from vendas import menu_vendas
 
@@ -10,17 +12,15 @@ while True:
     print("2 - Gerenciar Vendas")
     print("0 - Sair")
 
-    opcao = input("Escolha uma opção: ")
+    opcao = int(input("Escolha uma opção: "))
 
-    if opcao == "1":
-        menu_estoque()
-    
-    elif opcao == "2":
-        menu_vendas()
-    
-    elif opcao == "0":
-        print("Saindo do sistema. Até logo!")
-        break
-    
-    else:
-        print("Opção inválida. Tente novamente.")
+    match opcao:
+        case 1:
+            menu_estoque()
+        case 2:
+            menu_vendas()
+        case 0:
+            print("Saindo do programa...")
+            break
+        case _:
+            print("Opção inválida. Tente novamente.")

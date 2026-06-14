@@ -1,4 +1,5 @@
 relatorios/
+dados/
 
 __pycache__/
 *.pyc

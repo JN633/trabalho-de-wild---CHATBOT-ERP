@@ -108,6 +108,7 @@ def cadastrar_produto():
     id_produto = ultimo_id_produto
     
     estoque.append([id_produto, nome_produto, preco, quantidade])
+    salvar_estoque()
     
     print("Produto cadastrado com sucesso!")
 
@@ -136,6 +137,7 @@ def atualizar_produto():
     produto[1] = novo_nome
     produto[2] = float(input("Digite o novo preço do produto: R$"))
     produto[3] = int(input("Digite a nova quantidade do produto: "))
+    salvar_estoque()
     
     print("Produto atualizado com sucesso!")    
 
@@ -162,6 +164,7 @@ def atualizar_estoque():
     nova_quantidade = int(input("Digite a nova quantidade do produto: "))
     
     produto[3] = nova_quantidade
+    salvar_estoque()
     
     print("Estoque atualizado com sucesso!")
 

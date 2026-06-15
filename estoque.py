@@ -194,7 +194,7 @@ def atualizar_preco():
     print("Preço atualizado com sucesso!")
 
 #Função para atualizar o nome de um produto
-def atualizar_nome():
+def atualizar_nome_():
     print("=" * 49)
     print("===========     ATUALIZAR NOME     ===========")
     print("=" * 49)
@@ -274,7 +274,7 @@ def menu_atualizacao_produto():
             case "3":
                 atualizar_preco()
             case "4":
-                atualizar_nome()
+                atualizar_nome_()
             case "0":
                 break
             case _:

@@ -1,20 +1,25 @@
-from estoque import estoque, listar_produtos, buscar_produto, ver_lista_produtos
+import os
+from estoque import estoque, listar_produtos, buscar_produto, ver_lista_produtos, salvar_estoque
 
-#Matriz para armazenar as vendas
-vendas = [  
-    [1, 1, 2, 10.50, 21.00], #ID Venda, ID produto, quantidade, preço Unitário, Valor Total
-    [1, 2, 1, 8.99, 8.99],
+#Massa de dados inicial de vendas
+dados_iniciais_vendas = [
+    [1, 1, 2, 10.50, 21.00],
+    [1, 2, 1,  8.99,  8.99],
     [2, 5, 1, 12.00, 12.00],
-    [3, 3, 2, 4.50, 9.00],
-    [4, 4, 3, 6.99, 20.97],
-    [5, 8, 1, 7.50, 7.50],
-    [6, 9, 4, 1.99, 7.96],
-    [7, 10, 2, 1.00, 2.00],
-    [8, 6, 2, 3.50, 7.00],
-    [9, 7, 3, 2.00, 6.00]
+    [3, 3, 2,  4.50,  9.00],
+    [4, 4, 3,  6.99, 20.97],
+    [5, 8, 1,  7.50,  7.50],
+    [6, 9, 4,  1.99,  7.96],
+    [7,10, 2,  1.00,  2.00],
+    [8, 6, 2,  3.50,  7.00],
+    [9, 7, 3,  2.00,  6.00]
 ]
 
-ultimo_id_venda = 9
+#Variável para facilitar a troca futura do nome do arquivo, caso necessário
+ARQUIVO_VENDAS = "dados/vendas.txt"
+
+vendas = []
+ultimo_id_venda = 0
 
 #Funções usadas no setor VENDAS
 

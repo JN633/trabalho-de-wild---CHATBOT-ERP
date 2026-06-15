@@ -20,7 +20,7 @@ ARQUIVO_ESTOQUE = "dados/estoque.txt"
 estoque = []
 ultimo_id_produto = 0
 
-#Funções usadas no setor ESTOQUE w
+#Funções usadas no setor ESTOQUE 
 
 #Função para salvar o estoque no arquivo
 def carregar_estoque():
@@ -114,7 +114,7 @@ def cadastrar_produto():
 
 
 #Função para atualizar as informações de um produto existente
-def atualizar_produto():
+def atualizar_produto_completo():
     
     print("=" * 49)
     print("===========     ATUALIZAR PRODUTO     ===========")
@@ -167,6 +167,31 @@ def atualizar_estoque():
     salvar_estoque()
     
     print("Estoque atualizado com sucesso!")
+
+#Função para atualizar o preço de um produto
+def atualizar_preco():
+    print("=" * 49)
+    print("===========     ATUALIZAR PREÇO     ===========")
+    print("=" * 49)
+    
+    ver_lista_produtos()
+    
+    id_produto = int(input("Digite o ID do produto para atualizar o preço: "))
+    produto = buscar_produto(id_produto)
+    
+    if produto is None:
+        print("ERRO: Produto não encontrado.")
+        return
+    
+    print(f"Nome: {produto[1]}")
+    print(f"Preço atual: R${produto[2]:.2f}")
+    
+    novo_preco = float(input("Digite o novo preço do produto: R$"))
+    
+    produto[2] = novo_preco
+    salvar_estoque()
+    
+    print("Preço atualizado com sucesso!")
 
 
 #Função para excluir um produto do estoque, verificando se ele possui vendas registradas

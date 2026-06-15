@@ -193,6 +193,34 @@ def atualizar_preco():
     
     print("Preço atualizado com sucesso!")
 
+#Função para atualizar o nome de um produto
+def atualizar_nome():
+    print("=" * 49)
+    print("===========     ATUALIZAR NOME     ===========")
+    print("=" * 49)
+    
+    ver_lista_produtos()
+    
+    id_produto = int(input("Digite o ID do produto para atualizar o nome: "))
+    produto = buscar_produto(id_produto)
+    
+    if produto is None:
+        print("ERRO: Produto não encontrado.")
+        return
+    
+    print(f"Nome atual: {produto[1]}")
+    
+    novo_nome = input("Digite o novo nome do produto: ")
+    
+    if novo_nome == "":
+        print("ERRO: Nome inválido! Produto não foi atualizado.")
+        return
+    
+    produto[1] = novo_nome
+    salvar_estoque()
+    
+    print("Nome atualizado com sucesso!")
+
 
 #Função para excluir um produto do estoque, verificando se ele possui vendas registradas
 def excluir_produto():
@@ -262,9 +290,8 @@ def menu_estoque():
         
         print("1 - Listar produtos")
         print("2 - Cadastrar produto")
-        print("3 - Atualizar produto")
-        print("4 - Atualizar estoque")
-        print("5 - Excluir produto")
+        print("3 - Menu de atualização")
+        print("4 - Excluir produto")
         print("0 - Voltar ao menu principal")
         
         opcao = input("Escolha uma opção: ")
@@ -275,10 +302,8 @@ def menu_estoque():
             case "2":
                 cadastrar_produto()
             case "3":
-                atualizar_produto()
+                menu_atualizacao_produto()
             case "4":
-                atualizar_estoque()
-            case "5":
                 excluir_produto()
             case "0":
                 print("Voltando ao menu principal.")

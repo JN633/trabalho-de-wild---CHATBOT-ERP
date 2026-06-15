@@ -23,6 +23,43 @@ ultimo_id_venda = 0
 
 #Funções usadas no setor VENDAS
 
+#Função para carregar as vendas do arquivo para a memória
+def carregar_vendas():
+    global vendas, ultimo_id_venda
+
+    if os.path.exists(ARQUIVO_VENDAS):
+        vendas.clear()
+        with open(ARQUIVO_VENDAS, "r", encoding="utf-8") as f:
+            for linha in f:
+                linha = linha.strip()
+                if linha == "":
+                    continue
+                partes = linha.split(",")
+                id_v    = int(partes[0])
+                id_p    = int(partes[1])
+                qtd     = int(partes[2])
+                unit    = float(partes[3])
+                total   = float(partes[4])
+                vendas.append([id_v, id_p, qtd, unit, total])
+        if vendas:
+            ultimo_id_venda = max(v[0] for v in vendas)
+    else:
+        vendas.clear()
+        vendas.extend([list(v) for v in dados_iniciais_vendas])
+        ultimo_id_venda = 9
+        salvar_vendas()
+
+def salvar_vendas():
+    os.makedirs("dados", exist_ok=True)
+    with open(ARQUIVO_VENDAS, "w", encoding="utf-8") as f:
+        for venda in vendas:
+            linha = f"{venda[0]},{venda[1]},{venda[2]},{venda[3]},{venda[4]}\n"
+            f.write(linha)
+
+#Carrega o estoque ao executar o codigo
+carregar_vendas()
+
+
 def listar_vendas():
     print("=" * 49)
     print("============     LISTA DE VENDAS     ============")

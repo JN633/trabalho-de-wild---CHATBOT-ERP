@@ -198,6 +198,36 @@ def excluir_produto():
     print("Produto excluído com sucesso!")
 
 
+#Menu para escolher qual tipo de atualização deseja fazer em um produto existente
+def menu_atualizacao_produto():
+    while True:
+        print("=" * 50)
+        print("===========     ATUALIZAR PRODUTO     ===========")
+        print("=" * 50)
+
+        print("1 - Atualizar nome, preço e quantidade do produto")
+        print("2 - Atualizar apenas a quantidade do produto")
+        print("3 - Atualizar apenas o preço do produto")
+        print("4 - Atualizar apenas o nome do produto")
+        print("0 - Voltar ao menu anterior")
+
+        opcao = input("Escolha uma opção: ")
+
+        match opcao:
+            case "1":
+                atualizar_produto_completo()
+            case "2":
+                atualizar_estoque()
+            case "3":
+                atualizar_preco()
+            case "4":
+                atualizar_nome()
+            case "0":
+                break
+            case _:
+                print("Opção inválida. Tente novamente.")
+
+
 #Função para exibir o menu de opções do setor ESTOQUE
 def menu_estoque():
     while True:

@@ -115,13 +115,6 @@ def excluir_venda():
         print("ERRO: Venda não encontrada.")
     print("-" * 50)
 
-#Função para calcular o total ganho com as vendas registradas
-def total_vendas():
-    total = sum(venda[4] for venda in vendas)
-    print("=" * 50)
-    print(f"Total de vendas: R${total:.2f}")
-    print("=" * 50)
-
 #Função para excluir todas as vendas registradas
 def excluir_todas_as_vendas():
     global ultimo_id_venda
@@ -153,29 +146,22 @@ def menu_vendas():
         print("1 - Listar Vendas")
         print("2 - Registrar Venda")
         print("3 - Excluir Venda")
-        print("4 - Total de Vendas")
-        print("5 - Excluir Todas as Vendas")
+        print("4 - Excluir Todas as Vendas")
         print("0 - Voltar ao Menu Principal")
 
         opcao = input("Escolha uma opção: ")
 
-        if opcao == "1":
-            listar_vendas()
-        
-        elif opcao == "2":
-            registrar_venda()
-        
-        elif opcao == "3":
-            excluir_venda()
-        
-        elif opcao == "4":
-            total_vendas()
-        
-        elif opcao == "5":
-            excluir_todas_as_vendas()
-        
-        elif opcao == "0":
-            break
-        
-        else:
-            print("Opção inválida. Tente novamente.")
+        match opcao:
+            case "1":
+                listar_vendas()
+            case "2":
+                registrar_venda()
+            case "3":
+                excluir_venda()
+            case "4":
+                excluir_todas_as_vendas()
+            case "0":
+                print("Voltando ao menu principal.")
+                break
+            case _:
+                print("Opção inválida. Tente novamente.")

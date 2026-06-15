@@ -1,6 +1,8 @@
-#Matriz para armazenar os produtos em estoque
-estoque = [
-    [1, "Arroz", 10.50, 25], #ID, nome, preço, quantidade
+import os
+
+#Dados inicial (usada apenas se o arquivo não existir)
+dados_iniciais = [
+    [1, "Arroz", 10.50, 25],
     [2, "Feijão", 8.99, 18],
     [3, "Macarrão", 4.50, 34],
     [4, "Leite", 6.99, 25],
@@ -12,17 +14,59 @@ estoque = [
     [10, "Pão", 1.00, 50]
 ]
 
-ultimo_id_produto = 10
+#Variável para facilitar a troca futura do nome do arquivo, caso necessário
+ARQUIVO_ESTOQUE = "dados/estoque.txt"
 
-#Funções usadas no setor ESTOQUE
+estoque = []
+ultimo_id_produto = 0
+
+#Funções usadas no setor ESTOQUE w
+
+#Função para salvar o estoque no arquivo
+def carregar_estoque():
+    global estoque, ultimo_id_produto
+
+    if os.path.exists(ARQUIVO_ESTOQUE):
+        estoque.clear()
+        with open(ARQUIVO_ESTOQUE, "r", encoding="utf-8") as f:
+            for linha in f:
+                linha = linha.strip()
+                if linha == "":
+                    continue
+                partes = linha.split(" ; ")
+                id_p    = int(partes[0])
+                nome    = partes[1]
+                preco   = float(partes[2])
+                qtd     = int(partes[3])
+                estoque.append([id_p, nome, preco, qtd])
+        if estoque:
+            ultimo_id_produto = max(p[0] for p in estoque)
+    else:
+        estoque.clear()
+        estoque.extend([list(p) for p in dados_iniciais])
+        ultimo_id_produto = 10
+        salvar_estoque()
+
+
+#Função para salvar o estoque no arquivo
+def salvar_estoque():
+    os.makedirs("dados", exist_ok=True)
+    with open(ARQUIVO_ESTOQUE, "w", encoding="utf-8") as f:
+        for produto in estoque:
+            linha = f"{produto[0]} ; {produto[1]} ; {produto[2]} ; {produto[3]}\n"
+            f.write(linha)
+
+#Carrega o estoque ao executar o codigo
+carregar_estoque()
+
 
 #Função para buscar um produto pelo ID
 def buscar_produto(id_produto):
     for produto in estoque:
         if produto[0] == id_produto:
             return produto
-    
     return None
+
 
 #Função para listar os produtos em estoque
 def listar_produtos():
@@ -34,11 +78,13 @@ def listar_produtos():
     for produto in estoque:
         print(f"ID: {produto[0]} | Nome: {produto[1]} | Preço: R${produto[2]:.2f} | Quantidade: {produto[3]}")
 
+
 #Escolher se deseja ver a lista de produtos
 def ver_lista_produtos():
     ver_lista = int(input("Deseja ver a lista de produtos antes? (1 - Sim, 0 - Não): "))
     if ver_lista == 1:
         listar_produtos()
+
 
 #Função para cadastrar um novo produto no estoque
 def cadastrar_produto():
@@ -62,8 +108,10 @@ def cadastrar_produto():
     id_produto = ultimo_id_produto
     
     estoque.append([id_produto, nome_produto, preco, quantidade])
+    salvar_estoque()
     
     print("Produto cadastrado com sucesso!")
+
 
 #Função para atualizar as informações de um produto existente
 def atualizar_produto():
@@ -89,8 +137,10 @@ def atualizar_produto():
     produto[1] = novo_nome
     produto[2] = float(input("Digite o novo preço do produto: R$"))
     produto[3] = int(input("Digite a nova quantidade do produto: "))
+    salvar_estoque()
     
     print("Produto atualizado com sucesso!")    
+
 
 #Função para atualizar a quantidade em estoque de um produto existente
 def atualizar_estoque():
@@ -114,8 +164,10 @@ def atualizar_estoque():
     nova_quantidade = int(input("Digite a nova quantidade do produto: "))
     
     produto[3] = nova_quantidade
+    salvar_estoque()
     
     print("Estoque atualizado com sucesso!")
+
 
 #Função para excluir um produto do estoque, verificando se ele possui vendas registradas
 def excluir_produto():
@@ -141,8 +193,10 @@ def excluir_produto():
             return
     
     estoque.remove(produto)
+    salvar_estoque()
     
     print("Produto excluído com sucesso!")
+
 
 #Função para exibir o menu de opções do setor ESTOQUE
 def menu_estoque():
@@ -160,23 +214,19 @@ def menu_estoque():
         
         opcao = input("Escolha uma opção: ")
         
-        if opcao == "1":
-            listar_produtos()
-            
-        elif opcao == "2":
-            cadastrar_produto()
-            
-        elif opcao == "3":
-            atualizar_produto()
-            
-        elif opcao == "4":
-            atualizar_estoque()
-            
-        elif opcao == "5":
-            excluir_produto()
-            
-        elif opcao == "0":
-            break
-        else:
-            print("Opção inválida. Tente novamente.")
-
+        match opcao:
+            case "1":
+                listar_produtos()
+            case "2":
+                cadastrar_produto()
+            case "3":
+                atualizar_produto()
+            case "4":
+                atualizar_estoque()
+            case "5":
+                excluir_produto()
+            case "0":
+                print("Voltando ao menu principal.")
+                break
+            case _:
+                print("Opção inválida. Tente novamente.")

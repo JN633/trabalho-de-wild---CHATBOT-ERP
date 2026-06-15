@@ -1,7 +1,6 @@
-from unittest import case
-
 from estoque import menu_estoque
 from vendas import menu_vendas
+from relatorios import menu_relatorios
 
 while True:
     print("=" * 50)
@@ -10,16 +9,19 @@ while True:
 
     print("1 - Gerenciar Estoque")
     print("2 - Gerenciar Vendas")
+    print("3 - Emitir Relatórios")
     print("0 - Sair")
 
-    opcao = int(input("Escolha uma opção: "))
+    opcao = input("Escolha uma opção: ")
 
     match opcao:
-        case 1:
+        case "1":
             menu_estoque()
-        case 2:
+        case "2":
             menu_vendas()
-        case 0:
+        case "3":
+            menu_relatorios()
+        case "0":
             print("Saindo do programa...")
             break
         case _:

@@ -1,0 +1,12 @@
+relatorios/
+dados/
+
+__pycache__/
+*.pyc
+*.pyo
+
+venv/
+env/
+
+Thumbs.db
+desktop.ini
